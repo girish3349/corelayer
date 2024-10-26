@@ -34,28 +34,28 @@ public class TestListener implements ITestListener {
         return iTestResult.getMethod().getConstructorOrMethod().getName();
     }
 
-    protected static String testScreenShot() {
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-
-        String imageName = "C:\\temp\\" + timeStamp + ".png";
-
-        BufferedImage image = null;
-
-        try {
-            image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-        } catch (HeadlessException | AWTException e) {
-            logger.warning(e.getMessage());
-        }
-
-        try {
-            assert image != null;
-            ImageIO.write(image, "png", new File(imageName));
-        } catch (IOException ioe) {
-            logger.warning(ioe.getMessage());
-        }
-        return imageName;
-    }
+//    protected static String testScreenShot() {
+//
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+//
+//        String imageName = "C:\\temp\\" + timeStamp + ".png";
+//
+//        BufferedImage image = null;
+//
+//        try {
+//            image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+//        } catch (HeadlessException | AWTException e) {
+//            logger.warning(e.getMessage());
+//        }
+//
+//        try {
+//            assert image != null;
+//            ImageIO.write(image, "png", new File(imageName));
+//        } catch (IOException ioe) {
+//            logger.warning(ioe.getMessage());
+//        }
+//        return imageName;
+//    }
 
     @Override
     public void onStart(ITestContext iTextContext) {
@@ -101,15 +101,13 @@ public class TestListener implements ITestListener {
                 String errMsg = iTestResult.getThrowable().getMessage();
                 try {
                     ExtentTestManager.getTest().log(Status.FAIL,
-                            "Test step failed due to following error:" + errMsg.substring(0, errMsg.indexOf("expected") - 1).trim(),
-                            MediaEntityBuilder.createScreenCaptureFromPath(testScreenShot()).build());
+                            "Test step failed due to following error:" + errMsg.substring(0, errMsg.indexOf("expected") - 1).trim());
 
                 } catch (Exception e) {
                     logger.warning(e.getMessage());
                 }
             } else {
-                ExtentTestManager.getTest().log(Status.FAIL, "Test step failed : ", iTestResult.getThrowable(),
-                        MediaEntityBuilder.createScreenCaptureFromPath(testScreenShot()).build());
+                ExtentTestManager.getTest().log(Status.FAIL, "Test step failed : ");
             }
         }
 
