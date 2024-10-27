@@ -2,7 +2,7 @@ package org.framework.drivers;
 
 
 import org.apache.commons.lang3.StringUtils;
-import org.framework.ConfigProvider.ConfigProvider;
+import org.framework.configprovider.ConfigProvider;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeDriverService;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -13,17 +13,11 @@ import java.util.logging.Logger;
 
 public class EdgeDriverManager extends DriverManager {
 
-    HashMap<String, Object> EdgePrefs;
-    //private static final String EDGE_CAPS = System.getProperty("edge.caps.list.of.strings", ConfigProvider.getAsString("edge.caps.list.of.strings"));
+    HashMap<String, Object> edgePrefs;
     private final String downloadPath = System.getProperty("edge.file.download.path", ConfigProvider.getAsString("edge.file.download.path"));
     private EdgeDriverService edgeDriverService;
     private EdgeOptions options;
     private Logger logger = Logger.getLogger(EdgeDriverManager.class.getName());
-
-
-    public EdgeDriverManager() {
-    }
-
 
     @Override
     protected void startService() {
@@ -55,9 +49,9 @@ public class EdgeDriverManager extends DriverManager {
             options.addArguments(values);
             options.setCapability(CapabilityType.PLATFORM_NAME, getPlatform());
             if (StringUtils.isNoneEmpty(downloadPath)) {
-                EdgePrefs = new HashMap<>();
-                EdgePrefs.put("download.default_directory", downloadPath);
-                options.setExperimentalOption("prefs", EdgePrefs);
+                edgePrefs = new HashMap<>();
+                edgePrefs.put("download.default_directory", downloadPath);
+                options.setExperimentalOption("prefs", edgePrefs);
             }
             fnInitateDriver(options);
         } else {

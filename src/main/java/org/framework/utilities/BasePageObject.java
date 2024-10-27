@@ -1,7 +1,7 @@
 package org.framework.utilities;
 
 
-import org.framework.ConfigProvider.ConfigProvider;
+import org.framework.configprovider.ConfigProvider;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -213,7 +213,7 @@ public class BasePageObject {
         WebElement element = getElement(locator);
         element.clear();
         element.sendKeys(value);
-        Screenshots.addStepInReport(SET_INPUT + value);
+        Screenshots.addStepWithScreenshotInReport(driver, SET_INPUT +": " +  value);
     }
 
     protected void setInputValue(String locator, String value, Screenshot screenshot) {

@@ -1,7 +1,7 @@
-package org.framework.ConfigProvider;
+package org.framework.configprovider;
 
 
-import org.framework.ConfigProvider.exceptions.PropertyFileNotFountException;
+import org.framework.configprovider.exceptions.PropertyFileNotFountException;
 
 import java.io.*;
 import java.util.HashMap;
@@ -61,12 +61,12 @@ public final class ConfigProvider {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
         try {
-            InputStream inputStreamSms = loader.getClass().getResourceAsStream("/Properties/Sms.Properties");
+            InputStream inputStreamSms = loader.getClass().getResourceAsStream("/properties/sms.properties");
             props.load(inputStreamSms);
         } catch (NullPointerException npe) {
             System.out.println("Sms.properties file not found .... Searching again");
             try {
-                InputStream inputStream = ConfigProvider.class.getResourceAsStream("/Properties/Sms.Properties");
+                InputStream inputStream = ConfigProvider.class.getResourceAsStream("/properties/sms.properties");
                 props.load(inputStream);
                 System.out.println("Sms.properties file found");
             } catch (Exception e) {
@@ -97,7 +97,6 @@ public final class ConfigProvider {
 
     public static Properties loadProperties(String propertyFile) {
         Properties props = new Properties();
-        // ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = ConfigProvider.class.getResourceAsStream("/properties" + "/" + propertyFile + ".properties");
 
         try {
@@ -129,7 +128,6 @@ public final class ConfigProvider {
     }
     public static String getAsString(String environment, String propertyFile, String key) {
         Properties props = new Properties();
-        //ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream inputStream = ConfigProvider.class
                 .getResourceAsStream("/properties" + File.separator + environment + "/" + propertyFile + ".properties");
         String value = null;
@@ -144,5 +142,4 @@ public final class ConfigProvider {
         }
         return value;
     }
-
 }

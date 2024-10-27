@@ -15,9 +15,9 @@ public class ExtentTestManager {
     }
 
     private static Map<Integer, ExtentTest> extentTestMap = new HashMap<>();
-    private static Set<Integer> extenThreadList = new HashSet<>();
+    private static final Set<Integer> extenThreadList = new HashSet<>();
     private static ExtentReports extent;
-    private static Logger logger = Logger.getLogger(ExtentTestManager.class.getName());
+    private static final Logger logger = Logger.getLogger(ExtentTestManager.class.getName());
 
     public static synchronized ExtentTest getTest() {
         return extentTestMap.get(getCurrentThread());
@@ -32,22 +32,17 @@ public class ExtentTestManager {
             for (Integer i : s1) {
                 extent.removeTest(extentTestMap.get(i));
             }
-            logger.info("ExtentTestMap is : " + extentTestMap);
+            logger.info("ExtentTestMap is : {0}");
         }
     }
 
 
-    public static synchronized ExtentTest startTest(String testName, final String desc) {
+    public static synchronized void startTest(String testName, final String desc) {
         logger.info("Start test : " + Thread.currentThread().getId());
         extent = ExtentConfiguration.getInstance();
         ExtentTest test = extent.createTest(testName, desc);
         extentTestMap.put(getCurrentThread(), test);
         extenThreadList.add(getCurrentThread());
-        return test;
-    }
-
-    public void takeScreenShot(){
-
     }
 
     private static Integer getCurrentThread() {

@@ -117,4 +117,10 @@ public class FileUtil {
         }
     }
 
+
+    // Method to create a new file
+    public static void cleanDirectory(File filePath) {
+        // Need to Implement
+    }
+
 }

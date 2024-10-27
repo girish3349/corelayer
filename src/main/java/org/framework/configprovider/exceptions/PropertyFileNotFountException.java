@@ -1,4 +1,4 @@
-package org.framework.ConfigProvider.exceptions;
+package org.framework.configprovider.exceptions;
 
 public class PropertyFileNotFountException extends RuntimeException{
 

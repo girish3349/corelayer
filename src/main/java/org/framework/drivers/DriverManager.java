@@ -1,6 +1,6 @@
 package org.framework.drivers;
 
-import org.framework.ConfigProvider.ConfigProvider;
+import org.framework.configprovider.ConfigProvider;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 
@@ -25,7 +25,6 @@ public abstract class DriverManager {
     public WebDriver getDriver() {
         if (null == driver) {
             if (!isSeleniumGripRequired()) {
-                DriverExecutables.setBrowserExe();
                 startService();
             }
             createDriver();

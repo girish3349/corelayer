@@ -5,7 +5,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.markuputils.CodeLanguage;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
-import org.framework.ConfigProvider.ConfigProvider;
+import org.framework.configprovider.ConfigProvider;
 import org.framework.extentreports.ExtentTestManager;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.OutputType;
@@ -116,34 +116,6 @@ public class Screenshots {
         return driveWithFreeSpace;
     }
 
-    protected static String captureDesktop(String screenshotName) throws AWTException {
-        String randomNumber = RandomStringUtils.randomNumeric(5);
-        String destinationPath = screenshotsFolderPath + screenshotName + randomNumber + ".png";
-        Robot r = new Robot();
-        Rectangle capture = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-        BufferedImage image = r.createScreenCapture(capture);
-        try {
-            ImageIO.write(image, "png", new File(destinationPath));
-        } catch (IOException ioe) {
-            logger.warning("Not able to capture desktop");
-        }
-        return destinationPath;
-    }
-
-    public static void addStepWithDesktopScreenInReport(String message) {
-        String path = null;
-        try {
-            path = Screenshots.captureDesktop("screenshot");
-        } catch (AWTException e) {
-            logger.warning(e.getMessage());
-        }
-        if (!screenShotsLevel.equalsIgnoreCase("FailureOnly")) {
-            ExtentTestManager.getTest().pass(message, MediaEntityBuilder.createScreenCaptureFromPath(path).build());
-        } else {
-            ExtentTestManager.getTest().pass(message);
-        }
-    }
-
     public static void addFailureStepWithScreenshotInReport(WebDriver driver, String message) {
         ExtentTest extentTest = ExtentTestManager.getTest();
         if (extentTest != null) {
@@ -217,7 +189,6 @@ public class Screenshots {
 
         SimpleDateFormat formatter = new SimpleDateFormat();
         Graphics g = image.getGraphics();
-       // g.setFont(g.getFont(), deriveFont(18f));
         g.setColor(new Color(255, 20, 20));
         Date date = new Date(System.currentTimeMillis());
         g.drawString(formatter.format(date), image.getWidth() - 250, image.getHeight() - 20);
