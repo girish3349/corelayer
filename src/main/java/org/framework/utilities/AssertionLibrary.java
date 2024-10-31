@@ -17,9 +17,9 @@ public class AssertionLibrary {
         REQUIRED, NOT_REQUIRED
     }
 
-    public static void assertEqual(String actual, String expected, String message, Screenshot screenshot) {
+/*    public static void assertEqual(String actual, String expected, String message, Screenshot screenshot) {
         AssertionLibrary.assertEqual(actual, expected, message, screenshot);
-    }
+    }*/
 
     public static void assertEquals(Double actual, Double expected, Double delta, String message, Screenshot screenshot){
         String reportMessage = message + ACTUAL + actual.toString() + EXPECTED + expected.toString();
@@ -45,6 +45,11 @@ public class AssertionLibrary {
         String reportMessage = message +"<br> condition :"+ condition;
         Assert.assertTrue(condition, message);
         attachScreenshotIfRequired(screenshot, reportMessage);
+    }
+
+    public static void assertTrue(boolean condition, String message){
+        String reportMessage = message +"<br> condition :"+ condition;
+        Assert.assertTrue(condition, message);
     }
 
     public static void assertNotEquals(String actual, String expected, String message, Screenshot screenshot){
